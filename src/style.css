@@ -1,0 +1,338 @@
+:root {
+    --card-height: 124px;
+    --card-width: 88px;
+    --bet-chip-size: 40px; /* Slightly larger for touch */
+    --bet-button-size: 64px;
+
+    /* Modern Palette */
+    --bg-color: #0f3838;
+    --bg-gradient: radial-gradient(circle at 50% 30%, #1a5c5c, #092525);
+    --text-color: #ffffff;
+    --accent-gold: #ffd700;
+
+    /* Button Colors */
+    --btn-red: linear-gradient(145deg, #ff5252, #d32f2f);
+    --btn-black: linear-gradient(145deg, #424242, #212121);
+    --btn-blue: linear-gradient(145deg, #448aff, #1565c0);
+    --btn-green: linear-gradient(145deg, #66bb6a, #2e7d32);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-inset: inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    background-image: var(--bg-gradient);
+    min-height: 100vh;
+    color: var(--text-color);
+    max-width: 500px; /* Cleaner mobile width constraint */
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 10px;
+}
+
+/* Typography & Headers */
+h2 {
+    font-size: 1.2rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 5px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    width: 123px;
+    height: auto;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* Header Section */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.game-header section {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.game-header span {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+}
+
+.clear-bets-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.2s;
+}
+
+.clear-bets-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Grids */
+.buttons-grid {
+    display: grid; /* Switched to standard grid for better control */
+    gap: 12px;
+    justify-items: center;
+}
+
+/* Main Game Buttons */
+.bet-button {
+    width: 100%; /* Fill the grid cell */
+    max-width: 80px;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    color: white;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Button Active/Hover States */
+.bet-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.bet-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Specific Colors overrides */
+.red-bg {
+    background: var(--btn-red);
+}
+
+.black-bg {
+    background: var(--btn-black);
+    color: white !important;
+}
+
+.blue-bg {
+    background: var(--btn-blue);
+}
+
+.green-bg {
+    background: var(--btn-green);
+}
+
+/* Chips */
+.chips-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 5px 0;
+    justify-content: center;
+}
+
+.bet-chip {
+    width: var(--bet-chip-size);
+    height: var(--bet-chip-size);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+    /* background: radial-gradient(circle at 30% 30%, #fff, #ddd); */
+    border: 4px dashed #333; /* Poker chip look */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Dialogs */
+/* Dialog Box Container */
+.game-dialog {
+    background: linear-gradient(145deg, #164f4f, #0b2929);
+    border: 1px solid rgba(255, 215, 0, 0.3); /* Subtle gold border */
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 90%;
+    width: 320px;
+    color: var(--text-color);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    margin: auto;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* The dark overlay behind the dialog */
+.game-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px); /* Modern blur effect */
+}
+
+/* Dialog Title - Overriding generic h2 styles for the center alignment */
+.dialog-title {
+    margin-top: 0;
+    text-align: center;
+    border-bottom: none; /* Remove the line from the main UI h2 */
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Dialog Text */
+.game-dialog p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #e0e0e0;
+    margin-bottom: 25px;
+}
+
+/* Specific button style for the dialog */
+.dialog-btn {
+    background: var(--accent-gold);
+    color: #0f3838; /* Dark text on gold background for contrast */
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    transition: transform 0.1s, box-shadow 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dialog-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+    background-color: #ffe033;
+}
+
+.dialog-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
+}
+
+/* Cards */
+.card-holder {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    height: var(--card-height);
+    width: var(--card-width);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s;
+}
+
+.game-dialog .card-holder {
+    margin: 0 auto 20px auto;
+}
+
+.scale-66 {
+    transform: scale(0.66);
+    transform-origin: top right; /* Align properly in header */
+    display: inline-block;
+}
+
+.back-card {
+    background-image: url('/back.png');
+    background-position: calc(-1 * var(--card-width));
+}
+
+.card-suit-hearts {
+    background-image: url('/hearts.png');
+}
+
+.card-suit-diamonds {
+    background-image: url('/diamonds.png');
+}
+
+.card-suit-clubs {
+    background-image: url('/clubs.png');
+}
+
+.card-suit-spades {
+    background-image: url('/spades.png');
+}
+
+.card-rank-1 {
+    background-position: 0 0;
+}
+
+.card-rank-2 {
+    background-position: calc(-1 * var(--card-width)) 0;
+}
+
+.card-rank-3 {
+    background-position: calc(-2 * var(--card-width)) 0;
+}
+
+.card-rank-4 {
+    background-position: calc(-3 * var(--card-width)) 0;
+}
+
+.card-rank-5 {
+    background-position: calc(-4 * var(--card-width)) 0;
+}
+
+.card-rank-6 {
+    background-position: 0 calc(-1 * var(--card-height));
+}
+
+.card-rank-7 {
+    background-position: calc(-1 * var(--card-width)) calc(-1 * var(--card-height));
+}
+
+.card-rank-8 {
+    background-position: calc(-2 * var(--card-width)) calc(-1 * var(--card-height));
+}
+
+.card-rank-9 {
+    background-position: calc(-3 * var(--card-width)) calc(-1 * var(--card-height));
+}
+
+.card-rank-10 {
+    background-position: calc(-4 * var(--card-width)) calc(-1 * var(--card-height));
+}
+
+.card-rank-11 {
+    background-position: 0 calc(-2 * var(--card-height));
+}
+
+.card-rank-12 {
+    background-position: calc(-1 * var(--card-width)) calc(-2 * var(--card-height));
+}
+
+.card-rank-13 {
+    background-position: calc(-2 * var(--card-width)) calc(-2 * var(--card-height));
+}
