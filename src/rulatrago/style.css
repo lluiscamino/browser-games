@@ -265,24 +265,24 @@ h2 {
 }
 
 .back-card {
-    background-image: url('/back.png');
+    background-image: url('/cards/back.png');
     background-position: calc(-1 * var(--card-width));
 }
 
 .card-suit-hearts {
-    background-image: url('/hearts.png');
+    background-image: url('/cards/hearts.png');
 }
 
 .card-suit-diamonds {
-    background-image: url('/diamonds.png');
+    background-image: url('/cards/diamonds.png');
 }
 
 .card-suit-clubs {
-    background-image: url('/clubs.png');
+    background-image: url('/cards/clubs.png');
 }
 
 .card-suit-spades {
-    background-image: url('/spades.png');
+    background-image: url('/cards/spades.png');
 }
 
 .card-rank-1 {
