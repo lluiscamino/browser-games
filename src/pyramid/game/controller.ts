@@ -39,9 +39,9 @@ export class GameController {
         this.singleGameController = this.singleGameControllerFactory();
     }
 
-    public static create({wonTokensCalculatorStrategy, randomSeed}: GameConfig): GameController {
-        const deck = createInfiniteDeck(new DeterministicShuffler(randomSeed));
-        return new GameController(() => SingleGameController.create(wonTokensCalculatorStrategy, deck));
+    public static create(gameConfig: GameConfig): GameController {
+        const deck = createInfiniteDeck(new DeterministicShuffler(gameConfig.randomSeed));
+        return new GameController(() => SingleGameController.create(gameConfig, deck));
     }
 }
 
@@ -79,8 +79,14 @@ class SingleGameController {
         return this.wonTokensCalculator.calculateWonTokens(this.activeCardRanks);
     }
 
-    public static create(wonTokensCalculatorStrategy: WonTokensCalculationStrategy, deck: CardDeck): SingleGameController {
-        return new SingleGameController(wonTokensCalculatorStrategy, createPyramidRowsIterator(deck), createCardHand(deck));
+    public static create({
+                             wonTokensCalculatorStrategy,
+                             playerNumber,
+                             numPlayers
+                         }: GameConfig, deck: CardDeck): SingleGameController {
+        const pyramidRowsIterator = createPyramidRowsIterator(deck);
+        const cardHand = createCardHand(deck, playerNumber, numPlayers);
+        return new SingleGameController(wonTokensCalculatorStrategy, pyramidRowsIterator, cardHand);
     }
 }
 
@@ -88,6 +94,10 @@ function createPyramidRowsIterator(deck: CardDeck): PyramidRowsIterator {
     return Pyramid.create(deck, PYRAMID_SIZE).newRowsIterator();
 }
 
-function createCardHand(deck: CardDeck): CardHand {
-    return CardHand.create(deck, CARDS_PER_PLAYER);
+function createCardHand(deck: CardDeck, playerNumber: number, numPlayers: number): CardHand {
+    return createCardHands(deck, numPlayers)[playerNumber];
+}
+
+function createCardHands(deck: CardDeck, numPlayers: number): CardHand[] {
+    return Array.from({length: numPlayers}, () => CardHand.create(deck, CARDS_PER_PLAYER));
 }
